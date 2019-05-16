@@ -10,12 +10,13 @@ public class MapTest1 {
   }
 
   private static final int NUM = 100_000;
+  private static Map<String, String> map;
 
   public static void main(String[] args) {
     long beforeUse, afterUse, div;
     beforeUse = memoryUsed();
 
-    Map<String, String> map = new HashMap<>();
+    map = new HashMap<>();
     for (int i = 0;i < NUM;i++) {
       map.put(String.valueOf(i), "A" + i);
     }
