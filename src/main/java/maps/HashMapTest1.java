@@ -1,9 +1,12 @@
+package maps;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.System.out;
+import com.carrotsearch.sizeof.RamUsageEstimator;
 
-public class MapTest1 {
+public class HashMapTest1 {
   private static long memoryUsed() {
     Runtime runtime = Runtime.getRuntime();
     return runtime.totalMemory() - runtime.freeMemory();
@@ -27,5 +30,6 @@ public class MapTest1 {
     out.println(" -- String[] set 10digit -- ");
     out.println(div);
     out.println((double)div / map.size());
+    out.println(RamUsageEstimator.sizeOf(map));
   }
 }
