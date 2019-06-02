@@ -65,4 +65,16 @@ public class TrieTest1 {
         assertTrue(entries.contains(new AbstractMap.SimpleEntry<>("1", "a")));
         assertTrue(entries.contains(new AbstractMap.SimpleEntry<>("2", "b")));
     }
+
+    @Test(timeout = 1000)
+    public void multiLengthTest1() {
+        StringTrieTree tree = new StringTrieTree();
+        tree.put("1", "a");
+        tree.put("11", "b");
+        tree.put("1111", "c");
+        assertThat(tree.size(), is(3));
+        assertThat(tree.get("1"), is("a"));
+        assertThat(tree.get("11"), is("b"));
+        assertThat(tree.get("1111"), is("c"));
+    }
 }
