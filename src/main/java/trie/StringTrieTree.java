@@ -1,9 +1,7 @@
 package trie;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StringTrieTree extends TrieTree<String, String> {
     private int size;
@@ -114,18 +112,45 @@ public class StringTrieTree extends TrieTree<String, String> {
         size = 0;
     }
 
+    private void findKeys(Stack<Character> keyStack, Node node, Set<String> keys) {
+        if (node.value != null) {
+            keyStack.push(node.nextKey);
+            String key1 = keyStack.stream().map(String::valueOf).collect(Collectors.joining(""));
+            keys.add(key1);
+        }
+        for (Node child: node.list) {
+            findKeys(keyStack, child, keys);
+        }
+        if (node.value != null) {
+            keyStack.pop();
+        }
+    }
+
     @Override
     public Set<String> keySet() {
-        return null;
+        Set<String> keys = new HashSet<>();
+        Stack<Character> keyStack = new Stack<>();
+        findKeys(keyStack, rootNode, keys);
+        return keys;
     }
 
     @Override
     public Collection<String> values() {
-        return null;
+        Set<String> keySets =  keySet();
+        List<String> values = new ArrayList<>();
+        for (String key: keySets) {
+            values.add(get(key));
+        }
+        return values;
     }
 
     @Override
     public Set<Entry<String, String>> entrySet() {
-        return null;
+        Set<String> keySets = keySet();
+        Set<Entry<String, String>> sets = new HashSet<>();
+        for (String key: keySets) {
+            sets.add(new AbstractMap.SimpleEntry<>(key, get(key)));
+        }
+        return sets;
     }
 }
