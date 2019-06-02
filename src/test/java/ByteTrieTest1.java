@@ -1,4 +1,5 @@
 import org.junit.Test;
+import trie.ByteTrieTree;
 import trie.StringTrieTree;
 
 import java.util.AbstractMap;
@@ -9,10 +10,10 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-public class TrieTest1 {
+public class ByteTrieTest1 {
     @Test(timeout = 1000)
     public void functionTest1() {
-        StringTrieTree tree = new StringTrieTree();
+        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         assertTrue(tree.containsKey("1"));
         assertThat(tree.size(), is(1));
@@ -21,7 +22,7 @@ public class TrieTest1 {
     @SuppressWarnings("OverwrittenKey")
     @Test(timeout = 1000)
     public void keyDuplicatedTest1() {
-        StringTrieTree tree = new StringTrieTree();
+        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         tree.put("2", "c");
@@ -34,7 +35,7 @@ public class TrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsKeySetTest1() {
-        StringTrieTree tree = new StringTrieTree();
+        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -45,7 +46,7 @@ public class TrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsValuesTest1() {
-        StringTrieTree tree = new StringTrieTree();
+        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -56,7 +57,7 @@ public class TrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsEntrySetTest1() {
-        StringTrieTree tree = new StringTrieTree();
+        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
