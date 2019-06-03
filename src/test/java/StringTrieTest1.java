@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 public class StringTrieTest1 {
@@ -76,5 +76,23 @@ public class StringTrieTest1 {
         assertThat(tree.get("1"), is("a"));
         assertThat(tree.get("11"), is("b"));
         assertThat(tree.get("1111"), is("c"));
+        Set<String> keys = tree.keySet();
+        assertThat(keys.size(), is(3));
+        assertThat(keys, hasItems("1", "11", "1111"));
+    }
+
+    @Test(timeout = 1000)
+    public void multiByteTest1() {
+        StringTrieTree tree = new StringTrieTree();
+        tree.put("あ", "a");
+        tree.put("い", "b");
+        tree.put("あいう", "c");
+        assertThat(tree.size(), is(3));
+        assertThat(tree.get("あ"), is("a"));
+        assertThat(tree.get("い"), is("b"));
+        assertThat(tree.get("あいう"), is("c"));
+        Set<String> keys = tree.keySet();
+        assertThat(keys.size(), is(3));
+        assertThat(keys, hasItems("あ", "い", "あいう"));
     }
 }

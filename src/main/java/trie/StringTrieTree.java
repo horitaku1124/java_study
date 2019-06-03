@@ -113,24 +113,24 @@ public class StringTrieTree extends TrieTree<String, String> {
     }
 
     private void findKeys(Stack<Character> keyStack, Node node, Set<String> keys) {
+        keyStack.push(node.nextKey);
         if (node.value != null) {
-            keyStack.push(node.nextKey);
             String key1 = keyStack.stream().map(String::valueOf).collect(Collectors.joining(""));
             keys.add(key1);
         }
         for (Node child: node.list) {
             findKeys(keyStack, child, keys);
         }
-        if (node.value != null) {
-            keyStack.pop();
-        }
+        keyStack.pop();
     }
 
     @Override
     public Set<String> keySet() {
         Set<String> keys = new HashSet<>();
         Stack<Character> keyStack = new Stack<>();
-        findKeys(keyStack, rootNode, keys);
+        rootNode.list.forEach(node -> {
+            findKeys(keyStack, node, keys);
+        });
         return keys;
     }
 
