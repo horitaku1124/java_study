@@ -98,12 +98,42 @@ public class StringTrieTree extends TrieTree<String, String> {
 
     @Override
     public String remove(Object key) {
-        return null;
+        if (key instanceof String) {
+            String key1 = (String)key;
+
+            Node current = rootNode;
+            for (int i = 0;i < key1.length();i++) {
+                char c = key1.charAt(i);
+
+                boolean childFound = false;
+                for (Node child: current.list) {
+                    if (child.nextKey == c) {
+                        current = child;
+                        childFound = true;
+                        break;
+                    }
+                }
+                if (!childFound) {
+                    return null;
+                }
+            }
+            String value = current.value;
+            current.value = null;
+            size--;
+            return value;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void putAll(Map<? extends String, ? extends String> m) {
-
+        Set<? extends Entry<? extends String, ? extends String>> entries = m.entrySet();
+        for (Entry<? extends String, ? extends String> entry: entries) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            put(key, value);
+        }
     }
 
     @Override

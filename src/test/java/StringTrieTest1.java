@@ -95,4 +95,17 @@ public class StringTrieTest1 {
         assertThat(keys.size(), is(3));
         assertThat(keys, hasItems("あ", "い", "あいう"));
     }
+
+    @Test(timeout = 1000)
+    public void removeTest() {
+        StringTrieTree tree = new StringTrieTree();
+        tree.put("あ", "a");
+        tree.put("い", "b");
+        tree.put("a", "c");
+        tree.put("abc", "ABC");
+        assertThat(tree.size(), is(4));
+        tree.remove("a");
+        assertThat(tree.size(), is(3));
+        assertThat(tree.containsKey("a"), is( false));
+    }
 }
