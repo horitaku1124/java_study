@@ -19,7 +19,7 @@ abstract public class TrieTree<K, V> implements Map<K, V> {
     @Override
     public Collection<V> values() {
         Set<K> keySets = keySet();
-        List<V> values = new ArrayList<>();
+        Collection<V> values = new ArrayList<>();
         for (K key: keySets) {
             values.add(get(key));
         }

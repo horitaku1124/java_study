@@ -3,22 +3,29 @@ package trie;
 import java.util.*;
 import java.util.stream.Collectors;
 
-abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
+public class StringKeyTrie<V> extends TrieTree<String, V> {
     static class Node<V> {
         char nextKey;
         V value;
-        ArrayList<Node<V>> list = new ArrayList<>();
+        ArrayList<Node<V>> children = new ArrayList<>();
     }
     protected Node<V> rootNode;
 
+    @Override
+    public void clear() {
+        rootNode = new Node<>();
+        size = 0;
+    }
 
     private void findKeys(Stack<Character> keyStack, Node<V> node, Set<String> keys) {
         keyStack.push(node.nextKey);
         if (node.value != null) {
-            String key1 = keyStack.stream().map(String::valueOf).collect(Collectors.joining(""));
+            String key1 = keyStack.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(""));
             keys.add(key1);
         }
-        for (Node<V> child: node.list) {
+        for (Node<V> child: node.children) {
             findKeys(keyStack, child, keys);
         }
         keyStack.pop();
@@ -28,7 +35,7 @@ abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
     public Set<String> keySet() {
         Set<String> keys = new HashSet<>();
         Stack<Character> keyStack = new Stack<>();
-        rootNode.list.forEach(node -> {
+        rootNode.children.forEach(node -> {
             findKeys(keyStack, node, keys);
         });
         return keys;
@@ -54,7 +61,7 @@ abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
                 char c = key1.charAt(i);
 
                 boolean childFound = false;
-                for (Node<V> child: current.list) {
+                for (Node<V> child: current.children) {
                     if (child.nextKey == c) {
                         current = child;
                         childFound = true;
@@ -79,7 +86,7 @@ abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
             char c = key.charAt(i);
 
             boolean found = false;
-            for (Node<V> child: current.list) {
+            for (Node<V> child: current.children) {
                 if (child.nextKey == c) {
                     current = child;
                     found = true;
@@ -89,7 +96,7 @@ abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
             if (!found) {
                 Node<V> newNode = new Node<>();
                 newNode.nextKey = c;
-                current.list.add(newNode);
+                current.children.add(newNode);
                 current = newNode;
                 keyCreated = true;
             }
@@ -112,7 +119,7 @@ abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
                 char c = key1.charAt(i);
 
                 boolean childFound = false;
-                for (Node<V> child: current.list) {
+                for (Node<V> child: current.children) {
                     if (child.nextKey == c) {
                         current = child;
                         childFound = true;
@@ -130,5 +137,46 @@ abstract public class StringKeyTrie<V> extends TrieTree<String, V> {
         } else {
             return null;
         }
+    }
+
+
+
+    private void findAllEntries(Stack<Character> keyStack,
+                                Node<V> parent,
+                                Set<Entry<String, V>> result) {
+        keyStack.push(parent.nextKey);
+        if (parent.value != null) {
+            String key1 = keyStack.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(""));
+            result.add(new AbstractMap.SimpleEntry<>(key1, parent.value));
+        }
+        parent.children.forEach(child -> {
+            findAllEntries(keyStack, child, result);
+        });
+        keyStack.pop();
+    }
+
+    public Set<Entry<String, V>> findByPrefix(String prefix) {
+        Node<V> parent = rootNode;
+        Set<Entry<String, V>> result = new HashSet<>();
+        char[] chars = prefix.toCharArray();
+        for (char c: chars) {
+            boolean found = false;
+            for (Node<V> child: parent.children) {
+                if(child.nextKey == c) {
+                    parent = child;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return result;
+            }
+        }
+        Stack<Character> keyStack = new Stack<>();
+        findAllEntries(keyStack, parent, result);
+
+        return result;
     }
 }

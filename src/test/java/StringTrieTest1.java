@@ -25,6 +25,7 @@ public class StringTrieTest1 {
         assertThat(tree.size(), is(1));
         assertThat(tree.get("1"), is("a"));
     }
+
     @SuppressWarnings("OverwrittenKey")
     @Test(timeout = 1000)
     public void keyDuplicatedTest1() {
@@ -38,6 +39,7 @@ public class StringTrieTest1 {
         assertTrue(tree.containsKey("2"));
         assertFalse(tree.containsKey("3"));
     }
+
     @Test(timeout = 1000)
     public void returnsKeySetTest1() {
         tree.put("1", "a");
@@ -48,6 +50,7 @@ public class StringTrieTest1 {
         assertTrue(strings.contains("1"));
         assertTrue(strings.contains("2"));
     }
+
     @Test(timeout = 1000)
     public void returnsValuesTest1() {
         tree.put("1", "a");
@@ -58,6 +61,7 @@ public class StringTrieTest1 {
         assertTrue(values.contains("a"));
         assertTrue(values.contains("b"));
     }
+
     @Test(timeout = 1000)
     public void returnsEntrySetTest1() {
         tree.put("1", "a");
