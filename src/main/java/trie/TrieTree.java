@@ -5,7 +5,6 @@ import java.util.*;
 abstract public class TrieTree<K, V> implements Map<K, V> {
     protected int size;
 
-
     @Override
     public int size() {
         return size;
@@ -15,7 +14,6 @@ abstract public class TrieTree<K, V> implements Map<K, V> {
     public boolean isEmpty() {
         return size == 0;
     }
-
 
 
     @Override

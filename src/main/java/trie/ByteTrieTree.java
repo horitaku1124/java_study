@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ByteTrieTree extends TrieTree<String, String> {
-    private int size;
     static class Node {
         byte nextKey;
         String value;
@@ -15,17 +14,6 @@ public class ByteTrieTree extends TrieTree<String, String> {
     public ByteTrieTree() {
         rootNode = new Node();
         size = 0;
-    }
-
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     @Override
@@ -103,10 +91,6 @@ public class ByteTrieTree extends TrieTree<String, String> {
         return null;
     }
 
-    @Override
-    public void putAll(Map<? extends String, ? extends String> m) {
-
-    }
 
     @Override
     public void clear() {
@@ -134,25 +118,5 @@ public class ByteTrieTree extends TrieTree<String, String> {
         Stack<Byte> keyStack = new Stack<>();
         findKeys(keyStack, rootNode, keys);
         return keys;
-    }
-
-    @Override
-    public Collection<String> values() {
-        Set<String> keySets =  keySet();
-        List<String> values = new ArrayList<>();
-        for (String key: keySets) {
-            values.add(get(key));
-        }
-        return values;
-    }
-
-    @Override
-    public Set<Entry<String, String>> entrySet() {
-        Set<String> keySets = keySet();
-        Set<Entry<String, String>> sets = new HashSet<>();
-        for (String key: keySets) {
-            sets.add(new AbstractMap.SimpleEntry<>(key, get(key)));
-        }
-        return sets;
     }
 }
