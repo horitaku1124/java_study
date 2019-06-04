@@ -1,6 +1,7 @@
+import org.junit.Before;
 import org.junit.Test;
 import trie.ByteTrieTree;
-import trie.StringTrieTree;
+import trie.StringToStringTrie;
 
 import java.util.AbstractMap;
 import java.util.Collection;
@@ -11,9 +12,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class ByteTrieTest1 {
+    private Map<String, String> tree;
+
+    @Before
+    public void setup() {
+        tree = new ByteTrieTree();
+    }
+
+
     @Test(timeout = 1000)
     public void functionTest1() {
-        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         assertTrue(tree.containsKey("1"));
         assertThat(tree.size(), is(1));
@@ -22,7 +30,6 @@ public class ByteTrieTest1 {
     @SuppressWarnings("OverwrittenKey")
     @Test(timeout = 1000)
     public void keyDuplicatedTest1() {
-        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         tree.put("2", "c");
@@ -35,7 +42,6 @@ public class ByteTrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsKeySetTest1() {
-        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -46,7 +52,6 @@ public class ByteTrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsValuesTest1() {
-        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -57,7 +62,6 @@ public class ByteTrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsEntrySetTest1() {
-        ByteTrieTree tree = new ByteTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -69,7 +73,6 @@ public class ByteTrieTest1 {
 
     @Test(timeout = 1000)
     public void multiLengthTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         tree.put("11", "b");
         tree.put("1111", "c");

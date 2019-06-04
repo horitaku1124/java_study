@@ -1,9 +1,8 @@
 package maps;
 
 import com.carrotsearch.sizeof.RamUsageEstimator;
-import trie.StringTrieTree;
+import trie.StringToStringTrie;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.System.out;
@@ -21,7 +20,7 @@ public class MyTrieTest1 {
     long beforeUse, afterUse, div;
     beforeUse = memoryUsed();
 
-    map = new StringTrieTree();
+    map = new StringToStringTrie();
     for (int i = 0;i < NUM;i++) {
       map.put(String.valueOf(i), "A" + i);
     }

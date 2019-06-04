@@ -1,5 +1,6 @@
+import org.junit.Before;
 import org.junit.Test;
-import trie.StringTrieTree;
+import trie.StringToStringTrie;
 
 import java.util.AbstractMap;
 import java.util.Collection;
@@ -10,9 +11,15 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 public class StringTrieTest1 {
+    private Map<String, String> tree;
+
+    @Before
+    public void setup() {
+        tree = new StringToStringTrie();
+    }
+
     @Test(timeout = 1000)
     public void functionTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         assertTrue(tree.containsKey("1"));
         assertThat(tree.size(), is(1));
@@ -21,7 +28,6 @@ public class StringTrieTest1 {
     @SuppressWarnings("OverwrittenKey")
     @Test(timeout = 1000)
     public void keyDuplicatedTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         tree.put("2", "c");
@@ -34,7 +40,6 @@ public class StringTrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsKeySetTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -45,7 +50,6 @@ public class StringTrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsValuesTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -56,7 +60,6 @@ public class StringTrieTest1 {
     }
     @Test(timeout = 1000)
     public void returnsEntrySetTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         tree.put("2", "b");
         assertThat(tree.size(), is(2));
@@ -68,7 +71,6 @@ public class StringTrieTest1 {
 
     @Test(timeout = 1000)
     public void multiLengthTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("1", "a");
         tree.put("11", "b");
         tree.put("1111", "c");
@@ -83,7 +85,6 @@ public class StringTrieTest1 {
 
     @Test(timeout = 1000)
     public void multiByteTest1() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("あ", "a");
         tree.put("い", "b");
         tree.put("あいう", "c");
@@ -98,7 +99,6 @@ public class StringTrieTest1 {
 
     @Test(timeout = 1000)
     public void removeTest() {
-        StringTrieTree tree = new StringTrieTree();
         tree.put("あ", "a");
         tree.put("い", "b");
         tree.put("a", "c");

@@ -2,7 +2,6 @@ package maps;
 
 import com.carrotsearch.sizeof.RamUsageEstimator;
 import trie.ByteTrieTree;
-import trie.StringTrieTree;
 
 import java.util.Map;
 
