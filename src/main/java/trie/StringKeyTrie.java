@@ -11,6 +11,10 @@ public class StringKeyTrie<V> extends TrieTree<String, V> {
     }
     protected Node<V> rootNode;
 
+    public StringKeyTrie() {
+        clear();
+    }
+
     @Override
     public void clear() {
         rootNode = new Node<>();
