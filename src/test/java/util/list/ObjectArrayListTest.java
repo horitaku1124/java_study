@@ -1,4 +1,4 @@
-package util.ist;
+package util.list;
 
 import org.junit.Test;
 import util.ObjectArrayList;
