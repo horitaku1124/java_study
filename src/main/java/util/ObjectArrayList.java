@@ -23,6 +23,7 @@ public class ObjectArrayList<R> {
    *     <li>10k  :  485us</li>
    *     <li>50k  :  2.5ms</li>
    *     <li>100k :  3.1ms</li>
+   *     <li>100k :   28ms</li>
    * </ul>
    * <p>O(N)</p>
    *

@@ -26,10 +26,8 @@ public class ObjectArrayListTest {
 
     @Test
     public void add_performanceTest() {
-        int[] nums = {100, 500, 1_000, 5_000, 10_000, 50_000, 100_000};
+        int[] nums = {100, 500, 1_000, 5_000, 10_000, 50_000, 100_000, 500_000};
         for (int num: nums) {
-//            System.out.println("N=" + num);
-
             long started = System.nanoTime();
             ObjectArrayList<Integer> list = new ObjectArrayList<>();
             for (int i = 0;i < num;i++) {
