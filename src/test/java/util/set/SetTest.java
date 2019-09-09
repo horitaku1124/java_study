@@ -29,7 +29,7 @@ public class SetTest {
     @Test
     public void add_performanceTest() {
 
-        int[] nums = {100, 200, 500, 1_000, 2_000, 5_000};
+        int[] nums = {100, 200, 500, 1_000, 2_000, 5_000, 10_000, 50_000};
         for (int num: nums) {
 //            System.out.println("N=" + num);
 
@@ -40,7 +40,8 @@ public class SetTest {
             }
             long stopped = System.nanoTime();
             double elapse = stopped - started;
-            System.out.format("N=%12d - %,15.0fns\n", num, elapse);
+            double ns = elapse / num;
+            System.out.format("N=%12d - %,15.0fns - %,15.2fns/N\n", num, elapse, ns);
             assertThat(set.size(), is(num));
         }
     }

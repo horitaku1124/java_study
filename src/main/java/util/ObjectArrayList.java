@@ -16,14 +16,14 @@ public class ObjectArrayList<R> {
   /**
    *
    * <ul>
-   *     <li>100  :  560us</li>
-   *     <li>500  :   58us</li>
-   *     <li>1k   :   68us</li>
-   *     <li>5k   :  345us</li>
-   *     <li>10k  :  485us</li>
-   *     <li>50k  :  2.5ms</li>
-   *     <li>100k :  3.1ms</li>
-   *     <li>100k :   28ms</li>
+   *     <li>100  :  475us  :    4us/N</li>
+   *     <li>500  :   74us  :  148ns/N</li>
+   *     <li>1k   :   70us  :   70ns/N</li>
+   *     <li>5k   :  369us  :   73ns/N</li>
+   *     <li>10k  :  495us  :   49ns/N</li>
+   *     <li>50k  :  2.7ms  :   54ns/N</li>
+   *     <li>100k :  3.9ms  :   39ns/N</li>
+   *     <li>100k :   30ms  :   61ns/N</li>
    * </ul>
    * <p>O(N)</p>
    *

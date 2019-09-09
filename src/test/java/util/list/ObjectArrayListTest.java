@@ -35,7 +35,8 @@ public class ObjectArrayListTest {
             }
             long stopped = System.nanoTime();
             double elapse = stopped - started;
-            System.out.format("N=%12d - %,15.0fns\n", num, elapse);
+            double ns = elapse / num;
+            System.out.format("N=%12d - %,15.0fns - %,15.2fns/N\n", num, elapse, ns);
             assertThat(list.size(), is(num));
         }
     }

@@ -36,13 +36,16 @@ public class Set<V> {
 
     /**
      * <ul>
-     *     <li>100  :  976us</li>
-     *     <li>200  :  406us</li>
-     *     <li>500  :  1.5ms</li>
-     *     <li>1k   :  4.3ms</li>
-     *     <li>2k   :  4.6ms</li>
-     *     <li>5k   :   28ms</li>
+     *     <li>100  :  1.3ms  :   13us/N</li>
+     *     <li>200  :  503us  :  2.5us/N</li>
+     *     <li>500  :  922us  :  1.8us/N</li>
+     *     <li>1k   :  3.9ms  :  3.9us/N</li>
+     *     <li>2k   :  4.9ms  :  2.4us/N</li>
+     *     <li>5k   :   32ms  :  3.9us/N</li>
+     *     <li>10k  :  125ms  :   12us/N</li>
+     *     <li>50k  :   3.1s  :   62us/N</li>
      * </ul>
+     * <p>O(N)</p>
      * @param value value to store
      */
     public void add(V value) {

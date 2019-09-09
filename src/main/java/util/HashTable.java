@@ -45,14 +45,14 @@ public class HashTable<K, V> {
   /**
    *
    * <ul>
-   *     <li>100  :  766us</li>
-   *     <li>500  :  448us</li>
-   *     <li>1k   :  1.1ms</li>
-   *     <li>5k   :  2.2ms</li>
-   *     <li>10k  :   17ms</li>
-   *     <li>50k  :  2.5ms</li>
-   *     <li>100k :   52ms</li>
-   *     <li>500k :   6.8s</li>
+   *     <li>100  :  1.3ms  :   13us/N</li>
+   *     <li>500  :  510us  :    1us/N</li>
+   *     <li>1k   :  287us  :  287ns/N</li>
+   *     <li>5k   :  1.6ms  :  323ns/N</li>
+   *     <li>10k  :  1.9ms  :  196ns/N</li>
+   *     <li>50k  :   19ms  :  388ns/N</li>
+   *     <li>100k :   57ms  :  574ns/N</li>
+   *     <li>500k :   6.4s  :   12us/N</li>
    * </ul>
    * <p>O(N^2)</p>
    *
