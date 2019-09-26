@@ -22,6 +22,7 @@ public class Eventer {
             this.workDir = option.workDir;
         }
         private Thread mainThread = null;
+        Process child;
         private boolean keepDoing = false;
         public void start() {
             start(true);
@@ -29,6 +30,7 @@ public class Eventer {
 
         public void halt() {
             keepDoing = false;
+            child.destroy();
         }
 
         public void start(final boolean callFinish) {
@@ -38,7 +40,6 @@ public class Eventer {
             final List<Consumer> finishListener = this.finishListener;
             final File workDir = this.workDir;
             mainThread = new Thread(() -> {
-                Process child;
                 try {
                     Runtime rt = Runtime.getRuntime();
                     child = workDir == null ? rt.exec(commands) : rt.exec(commands, null, workDir);
