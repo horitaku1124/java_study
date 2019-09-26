@@ -1,6 +1,7 @@
 package event;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,28 +13,39 @@ public class Eventer {
         final List<Consumer<String>> stdoutReceivers;
         final List<Consumer<String>> stdErrorReceivers;
         final List<Consumer> finishListener;
+        final File workDir;
         public Commander(CommanderOption option) {
             this.commands = option.commands;
             this.stdoutReceivers = option.stdoutReceivers;
             this.stdErrorReceivers = option.stdErrorReceivers;
             this.finishListener = option.finishListener;
+            this.workDir = option.workDir;
         }
-        Thread mainThread;
+        private Thread mainThread = null;
+        private boolean keepDoing = false;
         public void start() {
             start(true);
         }
+
+        public void halt() {
+            keepDoing = false;
+        }
+
         public void start(final boolean callFinish) {
+            keepDoing = true;
             final List<Consumer<String>> stdoutReceivers = this.stdoutReceivers;
             final List<Consumer<String>> stdErrorReceivers = this.stdErrorReceivers;
             final List<Consumer> finishListener = this.finishListener;
+            final File workDir = this.workDir;
             mainThread = new Thread(() -> {
                 Process child;
                 try {
-                    child = Runtime.getRuntime().exec(commands);
+                    Runtime rt = Runtime.getRuntime();
+                    child = workDir == null ? rt.exec(commands) : rt.exec(commands, null, workDir);
                     BufferedReader stdin = new BufferedReader(new InputStreamReader(child.getInputStream()));
                     BufferedReader stderr = new BufferedReader(new InputStreamReader(child.getErrorStream()));
 
-                    while(child.isAlive()) {
+                    while(child.isAlive() && keepDoing) {
                         if(stdin.ready()) {
                             String line = stdin.readLine();
                             for (Consumer<String> a: stdoutReceivers) {
@@ -85,6 +97,7 @@ public class Eventer {
             private List<Consumer<String>> stdoutReceivers = new ArrayList<>();
             private List<Consumer<String>> stdErrorReceivers = new ArrayList<>();
             private List<Consumer> finishListener = new ArrayList<>();
+            private File workDir;
 
             public CommanderOption addStdoutReceiver(Consumer<String> receiver) {
                 this.stdoutReceivers.add(receiver);
@@ -98,6 +111,10 @@ public class Eventer {
                 this.finishListener.add(finishListener);
                 return this;
             }
+            public CommanderOption setWorkDir(String path) {
+                workDir = new File(path);
+                return this;
+            }
             public Commander build() {
                 Commander commander = new Commander(this);
                 return commander;
@@ -109,6 +126,7 @@ public class Eventer {
         Commander ping = Commander.CommanderBuilder.commands("ping", "-c", "10", "127.0.0.1")
                 .addStdoutReceiver(s -> System.out.println("Con:" + s))
                 .addFinishListener(s -> System.out.println("finish"))
+                .setWorkDir("./")
                 .build();
         ping.startAndWait();
     }
