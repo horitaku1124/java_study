@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 
 public class Eventer {
     static class Commander extends EventerBase {
@@ -26,6 +27,31 @@ public class Eventer {
         private boolean keepDoing = false;
         public void start() {
             start(true);
+        }
+        public void startAndWaitForBoot(String pattern) {
+            Pattern pattern1 = Pattern.compile(pattern);
+            final boolean[] started = {false};
+            this.stdoutReceivers.add(s -> {
+                if (pattern1.matcher(s).find()) {
+                    started[0] = true;
+                }
+            });
+            start(true);
+            int timeout = 100;
+            while(mainThread.isAlive()) {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (started[0]) {
+                    break;
+                }
+                timeout--;
+                if (timeout < 0) {
+                    throw new RuntimeException("timeout to start");
+                }
+            }
         }
 
         public void halt() {
